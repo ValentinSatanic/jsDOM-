@@ -9,6 +9,7 @@
             border-collapse: collapse;
             width: 300px;
             text-align: center;
+            margin-bottom: 10px;
         }
         td {
             border: 1px solid black;
@@ -20,23 +21,38 @@
     </style>
 </head>
 <body>
+
     <table id="randomTable"></table>
+    <button onclick="foo()">Заменить число</button>
+
     <script>
         const numbers = Array.from({ length: 30 }, () => Math.floor(Math.random() * 100));
         const table = document.getElementById("randomTable");
+
         let index = 0;
-        for (let i = 0; i < 5; i++) { 
+        for (let i = 0; i < 5; i++) {
             let row = document.createElement("tr");
-            for (let j = 0; j < 6; j++) { 
+            for (let j = 0; j < 6; j++) {
                 let cell = document.createElement("td");
-                cell.textContent = numbers[index]; 
+                cell.textContent = numbers[index];
+
                 if (numbers[index] >= 50) {
                     cell.classList.add("highlight");
                 }
+
                 row.appendChild(cell);
                 index++;
             }
             table.appendChild(row);
+        }
+
+        function foo() {
+            let newNumber = Math.floor(Math.random() * 100);
+            let cells = document.querySelectorAll("#randomTable td");
+            let randomCell = cells[Math.floor(Math.random() * cells.length)];
+
+            randomCell.textContent = newNumber;
+            randomCell.classList.toggle("highlight", newNumber >= 50);
         }
     </script>
 
